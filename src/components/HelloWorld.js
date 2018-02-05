@@ -2,20 +2,26 @@
 
 import { props, withComponent } from 'skatejs';
 import withReact from '@skatejs/renderer-react';
-import React from 'react';
+import React, { Component } from 'react';
 
-const Component = withComponent(withReact());
+class HelloWorld extends Component {
+  render () {
+    return <span>Hello, {this.props.name}!</span>;
+  }
+}
 
-class skateReactHelloWorld extends Component {
+const SkateComponent = withComponent(withReact());
+
+class SkateReactHelloWorld extends SkateComponent {
   static get props() {
     return {
       name: props.string
     };
   }
 
-  render ({name}) {
-    return <span>Hello, {name}!</span>;
+  render ({props}) {
+    return <HelloWorld {...props} />;
   }
 }
 
-customElements.define('skate-react-hello-world', skateReactHelloWorld)
+customElements.define('skate-react-hello-world', SkateReactHelloWorld);
